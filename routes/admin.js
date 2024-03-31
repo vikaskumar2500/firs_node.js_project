@@ -6,7 +6,7 @@ const adminController = require("../controllers/admin");
 
 const router = express.Router();
 
-
+router.post("/delete/:productId", adminController.postDeleteProduct);
 
 router.get("/edit-product/:productId", adminController.getEditProduct);
 
