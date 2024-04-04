@@ -1,0 +1,22 @@
+<section class="flex flex-wrap mt-10">
+  <% for(let book of books) { %>
+  <div class="flex flex-col border p-10 w-[20rem]">
+    <span>Book Name: <%= book.name %></span>
+    <span>Book Taken on: <%= new Date(book.createdAt).toLocaleString() %></span>
+    <span>Book Return on: <%= new Date(book.createdAt.setHours(book.createdAt.getHours()+1)).toLocaleString() %></span>
+    <span>Current fine: <%= (Math.ceil(( new Date(book.createdAt).getTime() - new Date().getTime()) / (1000 * 60 * 60))-1) * 10 %></span>
+    <form action="/add-return-books" method="post">
+      <input type="hidden" name="book" id="book" value="<%= book.id %>" />
+      <input type="number" name="fineAmount" placeholder="Enter fine amount" readonly />
+      <button type="submit" class="border p-[6px] mt-5 rounded-md w-[10rem] bg-black text-white px-2">Return book</button>
+    </form>
+  </div>
+  <% } %>
+</section>
+
+<script>
+  function toggleForm(bookId) {
+    const form = document.getElementById(`form${bookId}`);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+</script>

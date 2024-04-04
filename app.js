@@ -11,8 +11,8 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 const homeRoutes = require("./routes/home");
-const Blogs = require("./models/blogs");
-const Comments = require("./models/comments");
+const Books = require("./modals/books");
+const ReturnBooks = require("./modals/return-books");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -21,14 +21,8 @@ app.use(homeRoutes);
 
 app.use(errorController.get404);
 
-Blogs.hasMany(Comments, {
-  constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: "blogId",
-  sourceKey: "id",
-});
-Comments.belongsTo(Blogs);
+ReturnBooks.belongsTo(Books, { onDelete: "CASCADE", onUpdate: "CASCADE" });
+Books.hasOne(ReturnBooks);
 
 sequelize
   .sync()

@@ -1,55 +1,38 @@
-const Blogs = require("../models/blogs");
-const Comments = require("../models/comments");
+const ReturnBooks = require("../modals/return-books");
+const Books = require("../modals/books");
 
 exports.homeController = async (req, res, next) => {
   try {
-    const blogs = await Blogs.findAll({
-      include: Comments,
-    });
+    const books = await Books.findAll({include:ReturnBooks});
+    console.log(books[0]);
     res.render("home", {
       pageTitle: "Home",
       path: "/",
       formsCSS: true,
       productCSS: true,
-      blogs: blogs,
+      books: books,
     });
   } catch (e) {
     console.log(e);
   }
 };
 
-exports.addBlogController = async (req, res, next) => {
-  const title = req.body.title;
-  const author = req.body.author;
-  const content = req.body.content;
+exports.postAddBooks = async (req, res, next) => {
+  const name = req.body.name;
+  console.log("name", name);
   try {
-    await Blogs.create({ title, author, content });
+    await Books.create({ name });
     res.redirect("/");
   } catch (e) {
     console.log(e);
   }
 };
 
-exports.addCommentController = async (req, res, next) => {
-  const comment = req.body.comment;
-  const blogId = req.body.blogId;
+exports.postReturnBooks = async (req, res, next) => {
+  const name = req.body.name;
+  const fine = req.body.fine;
   try {
-    await Comments.create({ comment, blogId });
-    return res.redirect("/");
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-exports.deleteCommentController = async (req, res, next) => {
-  const commentId = req.params.commentId;
-  try {
-    await Comments.destroy({
-      where: {
-        id: commentId,
-      },
-    });
-    res.redirect("/");
+    await ReturnBooks.create({ name, fine });
   } catch (e) {
     console.log(e);
   }

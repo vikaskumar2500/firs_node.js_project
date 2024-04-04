@@ -2,24 +2,16 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/db");
 
-const Blogs = sequelize.define("blogs", {
+const Books = sequelize.define("books", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  title: {
+  name: {
     type: Sequelize.STRING,
-    allowNull: false,
-  },
-  author: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  content: {
-    type: Sequelize.TEXT,
     allowNull: false,
   },
 });
 
-module.exports = Blogs;
+module.exports = Books;

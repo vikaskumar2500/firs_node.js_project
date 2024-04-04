@@ -1,12 +1,9 @@
 const express = require("express");
-
-const home = require("../controllers/home");
 const router = express.Router();
+const home = require("../controllers/home");
 
-router.post("/delete-comments/:commentId", home.deleteCommentController);
-router.post("/add-comment", home.addCommentController);
-router.post("/add-blog", home.addBlogController);
-
+router.post("/add-return-book", home.postReturnBooks);
+router.post("/add-book", home.postAddBooks);
 router.get("/", home.homeController);
 
 module.exports = router;

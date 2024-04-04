@@ -2,16 +2,19 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/db");
 
-const Comments = sequelize.define("comments", {
+const ReturnBooks = sequelize.define("returnBooks", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  comment: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  fine:{
+    type:Sequelize.INTEGER,
+  }
 });
 
-module.exports = Comments;
+module.exports = ReturnBooks;
