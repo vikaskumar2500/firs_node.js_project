@@ -1,10 +1,13 @@
-<section class="flex flex-col mt-10 overflow-scroll h-[20rem]">
+<section class="flex flex-col mt-10  h-[20rem]">
   <h2>Return Books</h2>
-  <% for(let book of returnBooks) { %>
-  <div class="flex flex-col border p-10 w-[20rem]">
-    <span>Book Name: <%= book.name %></span>
-    <span>Fine: <%= book.fine  %></span>
-    <span>Returned on: <%= new Date(book.createdAt).toLocaleString() %> IST</span>
+  <div class="flex flex-wrap mt-10  h-[20rem] overflow-scroll">
+    <% for(let book of returnBooks) { %>
+    <div class="flex flex-col border p-10 w-[20rem]">
+      <span>Book Name: <%= book.name %></span>
+      <span>Fine: <%= book.fine  %></span>
+      <span>Returned on: <%= new Date(book.createdAt).toLocaleString() %> IST</span>
+    </div>
+    <% } %>
   </div>
-  <% } %>
+
 </section>

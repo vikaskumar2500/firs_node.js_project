@@ -3,13 +3,8 @@ const Books = require("../modals/books");
 
 exports.homeController = async (req, res, next) => {
   try {
-    const books = await Books.findAll({ include: ReturnBooks });
-    const returnBooks = books
-      .map((book) => {
-        if (book.returnBook !== null) return book.returnBook;
-        else return null;
-      })
-      .filter((b) => b !== null);
+    const books = await Books.findAll();
+    const returnBooks = await ReturnBooks.findAll();
 
     console.log("return books", returnBooks);
     res.render("home", {
@@ -18,7 +13,7 @@ exports.homeController = async (req, res, next) => {
       formsCSS: true,
       productCSS: true,
       books: books,
-      returnBooks,
+      returnBooks: returnBooks,
     });
   } catch (e) {
     console.log(e);
@@ -40,7 +35,6 @@ exports.postReturnBooks = async (req, res, next) => {
   const name = req.body.name;
   const bookId = req.body.bookId;
   const fine = req.body.fine;
-  console.log(name, fine);
   try {
     await ReturnBooks.create({ name, fine, bookId });
     await Books.destroy({ where: { id: bookId } });

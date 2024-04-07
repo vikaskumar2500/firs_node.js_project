@@ -21,8 +21,7 @@ app.use(homeRoutes);
 
 app.use(errorController.get404);
 
-ReturnBooks.belongsTo(Books, { onDelete: "CASCADE", onUpdate: "CASCADE" });
-Books.hasOne(ReturnBooks);
+
 
 sequelize
   .sync()
